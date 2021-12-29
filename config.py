@@ -1,4 +1,4 @@
-ips = ["192.168.1.6"]
+ips = ["192.168.1.28"]
 resourceId = {
     "VIVO": "android:id/list",
     "POCO": "com.android.settings:id/recycler_view",

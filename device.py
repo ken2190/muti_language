@@ -49,7 +49,7 @@ def install(wlan_ip):
 
 
 class BaseDevice:
-    def __init__(self, _d):
+    def __init__(self, _d=None, debug=0):
         self.language_list = []
         self.d = u2.connect(_d)
         self.sn = self.d.wlan_ip
@@ -68,7 +68,8 @@ class BaseDevice:
             '//*[@resource-id="com.android.permissioncontroller:id/permission_allow_foreground_only_button"]').click()
         # self.d.watcher.when('//*[@resource-id="android:id/button2"]').click()  # 安装时用的
         self.d.watcher.start()
-        self.d.app_stop_all()
+        if debug == 0:
+            self.d.app_stop_all()
         rep = HTMLReport(self.d, "report/" + str(time()))
         rep.patch_click()
 
@@ -82,6 +83,12 @@ class BaseDevice:
             return self.d.xpath(element)
         else:
             return self.d(text=element)
+
+    def swip_fixed(self):
+        self.d.swipe_points([[100, 100], [100, 500]])
+
+    def swip(self, direction):
+        self.d.swipe_ext(direction)
 
 
 class Device(BaseDevice):

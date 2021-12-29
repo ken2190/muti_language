@@ -1,5 +1,3 @@
-from device import Device
-
 PACKAGE_NAME = 'com.hanlanguage.hanbook'
 
 

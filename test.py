@@ -46,6 +46,7 @@ def create_test(serial):
     unittest.main()
 
 
+
 if __name__ == '__main__':
     ips = config.ips
     connect_devices(ips)
