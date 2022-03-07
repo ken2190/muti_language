@@ -1,4 +1,4 @@
-from page.BasePage import BasePage
+from uiauto.page.BasePage import BasePage
 
 PACKAGE_NAME = 'com.hanlanguage.hanbook'
 

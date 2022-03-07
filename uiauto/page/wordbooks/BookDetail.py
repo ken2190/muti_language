@@ -1,4 +1,4 @@
-from page.BasePage import BasePage
+from uiauto.page.BasePage import BasePage
 
 
 class BookDetailPage(BasePage):

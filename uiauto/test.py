@@ -2,15 +2,13 @@ import logging
 import unittest
 
 import multiprocessing as np
-from time import sleep
 
-from uiautomator2 import Direction, UiObjectNotFoundError
+from uiautomator2 import UiObjectNotFoundError
 from uiautomator2.exceptions import XPathElementNotFoundError
 
-import page.MainPage as mainpage
-
-import config
-from device import connect_devices, disconnect_device, Device, get_devices_list
+from uiauto import config
+from uiauto.device import disconnect_device, Device, get_devices_list
+from uiauto.page import MainPage
 
 
 class MyTest(unittest.TestCase):
@@ -39,7 +37,7 @@ def create_test(serial):
                 logging.error(de.brand + language_ + "执行失败" + str(e))
             finally:
                 logging.info("执行完了" + de.brand + language_)
-        de.app_stop(mainpage.PACKAGE_NAME)
+        de.app_stop(MainPage.PACKAGE_NAME)
         disconnect_device(serial)
 
     setattr(MyTest, "test" + serial, testhanbook2)

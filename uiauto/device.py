@@ -10,9 +10,8 @@ from uiautomator2 import Direction, UiObjectNotFoundError
 from uiautomator2.exceptions import XPathElementNotFoundError
 from uiautomator2.ext.htmlreport import HTMLReport
 
-import page.MainPage as mainpage
-
-import config
+from uiauto import config
+from uiauto.page import MainPage
 
 SETTING_PACKAGE = "com.android.settings"
 
@@ -133,7 +132,6 @@ class Device(BaseDevice):
         self.d.app_stop(SETTING_PACKAGE)
 
     def goto_language(self):
-        import switch_language_func
         func = getattr(self, self.brand)
         MAX_RETRY = 3
         retry = 0
@@ -149,15 +147,15 @@ class Device(BaseDevice):
                 logging.error(self.sn + "实在是定位不了:  " + e)
 
     def single_test(self):
-        self.d.app_start(mainpage.PACKAGE_NAME)
+        self.d.app_start(MainPage.PACKAGE_NAME)
 
         # 判断是否需要登录
         # if d(resourceId="com.hanlanguage.hanbook:id/tvUName").get_text() == "Sign in":
         #     d(resourceId="com.hanlanguage.hanbook:id/tvUName").click()
         # 切换tab
-        self.click(mainpage.MainPage.Me)
-        self.click(mainpage.MainPage.Flashcard)
-        self.click(mainpage.MainPage.Dictionary)
+        self.click(MainPage.MainPage.Me)
+        self.click(MainPage.MainPage.Flashcard)
+        self.click(MainPage.MainPage.Dictionary)
 
         # 查看词条详情
 

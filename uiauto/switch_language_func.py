@@ -2,7 +2,7 @@ from time import sleep
 
 from uiautomator2 import Direction
 
-from device import Device
+from uiauto.device import Device
 
 
 def VIVO(de: Device):
