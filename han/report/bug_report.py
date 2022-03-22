@@ -7,7 +7,7 @@ from datetime import datetime
 import requests
 import xlrd
 from xlutils.filter import process, XLRDReader, XLWTWriter
-import han.report.config as config
+import han.report.report_config as config
 
 from bs4 import BeautifulSoup
 

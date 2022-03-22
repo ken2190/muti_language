@@ -1,4 +1,5 @@
 import json
+import random
 import time
 
 import pymysql
@@ -80,13 +81,13 @@ def _rundata2():
         conn.close()
 
 
-def _new_daily(type=None, days=0, begin_id=0):
+def _new_daily(type=None, days=0, begin_id=int(random.random() * 1925639)):
     try:
         conn = pymysql.connect(**MYSQL_CONFIG)  # 数据库连接
         cur = conn.cursor(pymysql.cursors.DictCursor)  # 游标对象
         skip = 0
         import datetime
-        date = datetime.datetime(year=2022, month=2, day=1)
+        date = datetime.datetime(year=2022, month=3, day=17)
 
         while skip < days * 6:
             level = 1
@@ -96,7 +97,8 @@ def _new_daily(type=None, days=0, begin_id=0):
                     begin_id, skip)
             else:
                 sql_total = (
-                    'SELECT s.id id,s.zh as title,e.trans as intro FROM han_hanbook.dc_sentence  s,han_hanbook.dc_sentence_multi e WHERE s.id=e.sentence_id and s.id >3000 LIMIT {},6').format(
+                    'SELECT s.id id,s.zh as title,e.trans as intro FROM han_hanbook.dc_sentence  s,han_hanbook.dc_sentence_multi e WHERE s.id=e.sentence_id and s.id >{} LIMIT {},6').format(
+                    begin_id,
                     skip)
             cur.execute(sql_total)
             total = cur.fetchall()
@@ -151,6 +153,5 @@ def _new_live_class(date="1970-01-01", type=1, classify=1, steps=4, nums=30):
 
 
 if __name__ == '__main__':
-    # _new_daily(4, 30, 1001128)
-
-    _new_live_class(date='2022-02-28', classify=2, steps=3)
+    _new_daily(4, 30)
+    # _new_live_class(date='2022-02-28', classify=2, steps=3)

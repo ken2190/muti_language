@@ -1,0 +1,5 @@
+han/png/*.png
+han/report/*.xls
+uiauto/report/
+.pytest_cache
+

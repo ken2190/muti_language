@@ -161,13 +161,16 @@ def screenshot(screen):
     if screen == 0:
         return None
     name = int(time.time())
+    path = "D:\project\python\muti_language\han\\png/{}.png".format(name)
     if screen == 1:
+        android_path = "/sdcard/{}.png".format(name)
         os.system("adb shell screencap  -p /sdcard/{}.png".format(name))
-        os.system("adb pull  /sdcard/{}.png  D:\project\python\han\\tools/{}.png".format(name, name))
+        os.system("adb pull " + android_path + " " + path)
     elif screen == 2:
-        os.system("tidevice screenshot D:\project\python\han\\tools/{}.png".format(name))
-    img = open('D:\project\python\han\\tools/{}.png'.format(name), 'rb')
-    file = {'fileData': ("D:/project/python/statistics/tools/{}.png".format(name), img, 'Content-Type: image/jpg')}
+        os.system("tidevice screenshot " + path)
+    img = open(path, 'rb')
+    file = {
+        'fileData': (path.format(name), img, 'Content-Type: image/jpg')}
     return file
 
 
@@ -205,7 +208,7 @@ def createbug(title, tid, uid, uname, screen=0, content=None, vid=454, level=3, 
 
 
 if __name__ == '__main__':
-    go()
+    # go()
     # screenshot(1)
-    # screenshot(2)
+    screenshot(2)
     pass
