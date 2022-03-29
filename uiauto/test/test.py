@@ -1,63 +1,26 @@
-import logging
-import unittest
+import threading
 
-import multiprocessing as np
+import pytest
 
-from uiautomator2 import UiObjectNotFoundError
-from uiautomator2.exceptions import XPathElementNotFoundError
-
-from uiauto import config
-from uiauto.device.device import disconnect_device, BaseDevice, get_devices_list
-from uiauto.page import MainPage
+from uiauto.config import devices
+from uiauto.device.device import BaseDevice
+from uiauto.utils.adb import get_devices_list
 
 
-class MyTest(unittest.TestCase):
-    def setUp(self) -> None:
-        pass
+@pytest.fixture()
+def device():
+    b = devices.pop()
+    yield BaseDevice()(b)
+    devices.append(b)
 
-    def tearDown(self) -> None:
-        pass
 
-
-def create_test(serial):
-    def testhanbook2(self):
-        de = BaseDevice(serial)
-
-        # 执行用例
-        # self.get_language_list()
-        de.language_list = config.REALME_LANGUAGE_LIST
-        logging.info(de.brand + "_LANGUAGE_LIST=" + str(de.language_list) + "\n")
-
-        while de.language_list:
-            language_ = de.language_list.pop()
-            de.switch_language(language_)
-            try:
-                de.single_test()
-            except (UiObjectNotFoundError, XPathElementNotFoundError) as e:
-                logging.error(de.brand + language_ + "执行失败" + str(e))
-            finally:
-                logging.info("执行完了" + de.brand + language_)
-        de.app_stop(MainPage.PACKAGE_NAME)
-        disconnect_device(serial)
-
-    setattr(MyTest, "test" + serial, testhanbook2)
-    unittest.main()
+class TestMy:
+    def test_in(self, device):
+        d = device
+        print(threading.current_thread().name)
+        print(d.serial + '___________________________________')
 
 
 if __name__ == '__main__':
-    # ips = config.ips
-    # connect_devices(ips)
-    # li = adbutils.adb.device_list()
-    #
-    # for i in li:
-    #     if i.serial.__contains__("."):  # 只获取wifi连接的手机
-    #         # p = np.Process(target=create_test, args=(i.serial,))
-    #         p.run()
-
-    devices = get_devices_list()
-
-    for i in devices:
-        if i.serial.__contains__("."):  # 只获取wifi连接的手机
-            p = np.Process(target=create_test, args=(i.serial,))
-            p.run()
-    
+    devices.extend(get_devices_list())
+    pytest.main()

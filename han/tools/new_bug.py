@@ -6,7 +6,7 @@ import tkinter as tk
 from tkinter import ttk
 
 global cookie
-cookie = "cmsSid=d3b6d91333dbf4fcddb7d4a0f985ee45; cms_Logid=3486"
+cookie = "cmsSid=f89822f2aaaa05a05cecd434626a44e3; cms_Logid=3997"
 content = '''
 【步骤】
 1、
@@ -208,7 +208,7 @@ def createbug(title, tid, uid, uname, screen=0, content=None, vid=454, level=3, 
 
 
 if __name__ == '__main__':
-    # go()
+    go()
     # screenshot(1)
-    screenshot(2)
+    # screenshot(2)
     pass

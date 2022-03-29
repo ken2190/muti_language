@@ -1,3 +1,4 @@
+import os
 import time
 from builtins import print
 
@@ -28,3 +29,12 @@ def disconnect_vpn(device):
 def _open_vpn_app(device):
     device.app_start(V2rayPage.PACKAGE_NAME)
     device.device.wait_activity(V2rayPage.activity)
+
+
+def view_allure_report(dir='../report', host='127.0.0.1', port='9999'):
+    cmd = 'allure serve ' + dir + ' -h ' + host + ' -p ' + port
+    os.system(cmd)
+
+
+if __name__ == '__main__':
+    view_allure_report()

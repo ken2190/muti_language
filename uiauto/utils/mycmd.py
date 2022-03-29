@@ -6,7 +6,6 @@ def download(url, save_path, domain='https://c2.hancourse.com'):
         path = url
     else:
         path = domain + url
-        str(url).find()
 
     shell = "powershell (new-object System.Net.WebClient).DownloadFile('{}','{}' )".format(path, save_path)
     try:
